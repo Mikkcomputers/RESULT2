@@ -41,7 +41,7 @@ include_once("./process.php")
                                                 </div>
                                                 <div class="col-md-12 mt-3">
                                                     <div class="form-floating">
-                                                        <input class="form-control" id="inputLastName" type="text" required name="reg_number" placeholder="Enter Registration Number" />
+                                                        <input class="form-control" id="inputLastName" type="text" required name="subject" placeholder="Enter Registration Number" />
                                                         <label for="inputLastName">Subject</label>
                                                     </div>
                                                 </div>
@@ -49,13 +49,13 @@ include_once("./process.php")
                                            <div class="row mb-3">
                                              <div class="col-md-6">
                                                <div class="form-floating">
-                                                 <input class="form-control" id="inputEmail" type="number" name="english" required placeholder="English Score" />
+                                                 <input class="form-control" id="inputEmail" type="number" name="ca1" required placeholder="English Score" />
                                                 <label for="inputEmail">First CA Score</label>
                                                </div>
                                             </div>
                                              <div class="col-md-6">
                                                <div class="form-floating">
-                                                 <input class="form-control" id="inputEmail" type="number" name="math" required placeholder="Mathematics Score" />
+                                                 <input class="form-control" id="inputEmail" type="number" name="ca2" required placeholder="Mathematics Score" />
                                                 <label for="inputEmail">Second CA Score</label>
                                                </div>
                                             </div>
@@ -63,13 +63,13 @@ include_once("./process.php")
                                             <div class="row mb-3">
                                                 <div class="col-md-6">
                                                     <div class="form-floating mb-3 mb-md-0">
-                                                        <input class="form-control" id="inputPassword" type="number" name="bio" required placeholder="Biology Score" />
+                                                        <input class="form-control" id="inputPassword" type="number" name="ca3" required placeholder="Biology Score" />
                                                         <label for="inputPassword">Third CA Score</label>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-floating mb-3 mb-md-0">
-                                                        <input class="form-control" id="inputPasswordConfirm" type="number" name="chem" required placeholder="Chemistry Score" />
+                                                        <input class="form-control" id="inputPasswordConfirm" type="number" name="exam" required placeholder="Chemistry Score" />
                                                         <label for="inputPasswordConfirm">Examination Score</label>
                                                     </div>
                                                 </div>

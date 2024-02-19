@@ -15,18 +15,15 @@
 if (isset($_POST['btn'])) {
     $name = $_POST['name'];
     $reg_number = $_POST['reg_number'];
-    $english = $_POST['english'];
-    $maths = $_POST['math'];
-    $bio = $_POST['bio'];
-    $chem = $_POST['chem'];
-    $basic_sci = $_POST['basic_sci'];
-    $civic = $_POST['civic'];
-    $basic_tech = $_POST['basic_tech'];
-    $phy = $_POST['phy'];
-
-    $sql = "INSERT INTO `result1`(`NAME`, `REG_NUMBER`, `ENGLISH`, `MATHEMATICS`, `BIOLOGY`, `CHEMISTRY`, `BASIC_SCIENCE`, `CIVIC_EDUCATION`, `BASIC_TECHNOLOGY`, `PHYSICS`)VALUES(?,?,?,?,?,?,?,?,?,?)";
+    $subject = $_POST['subject'];
+    $ca1 = $_POST['ca1'];
+    $ca2 = $_POST['ca2'];
+    $ca3 = $_POST['ca3'];
+    $exams = $_POST['exam'];
+    
+    $sql = "INSERT INTO `result2`(`NAME`, `MATRIC_NO`, `SUBJECT`, `CA1`, `CA2`, `CA3`, `EXAMS`)VALUES(?,?,?,?,?,?,?)";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("ssssssssss", $name, $reg_number, $english, $maths, $bio, $chem, $basic_sci, $civic, $basic_tech, $phy);
+    $stmt->bind_param("sssiiis", $name, $reg_number, $subject, $ca1, $ca2, $ca3, $exams);
     $result = $stmt->execute();
     if ($result == true) {
         echo"

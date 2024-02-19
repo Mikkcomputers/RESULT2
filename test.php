@@ -34,7 +34,7 @@
         $file = fopen($fileTmpPath, 'r');
         while (($row = fgetcsv($file)) !== false) {
             // print_r($row)."<br>";
-            $sql = "INSERT INTO result2(`NAME`, `MATRIC_NO`, `SUBJECT`, `CA1`, `CA2`, `CA3`, `EXAMS`)VALUES('".$row[0]."','".$row[1]."','".$row[2]."','".$row[3]."','".$row[4]."','".$row[5]."','".$row[6]."')";
+            $sql = "INSERT INTO `rank-test`(`NAME`,`REG`, `EXAMS`)VALUES('".$row[0]."','".$row[1]."','".$row[2]."')";
             $res = $conn->query($sql);
             if ($res !== true) {
                 echo"<script>
@@ -81,7 +81,7 @@
 <body class="" style="background-color: #f1f1f1;">
     <!-- <div class="container"> -->
         
-        <form action="upload.php" method="post" enctype="multipart/form-data">
+        <form action="test.php" method="post" enctype="multipart/form-data">
             <div class="form-group">
                 <div class=" lert alert-light ">
                     
@@ -105,98 +105,65 @@
 
 <!-- <div class="card"> -->
     <!-- <div class=" card-body"> -->
-        <table id="myTable" class="display table table-striped table-hover table-border ">
+        <table id="myTabl" class="display table table-striped table-hover table-border ">
             <thead>
                 <tr>
                     <!-- <th>SN</th> -->
+                  
+                    <th>SN</th>
                     <th>NAME</th>
-                    <th>MATRIC NUMBER</th>
-                    <th>SUBJECT</th>
-                    <th>FIRST C.A</th>
-                    <th>SECOND C.A</th>
-                    <th>THIRD C.A</th>
+                    <th>REG</th>
                     <th>EXAMS</th>
                     <th>POSITION</th>
-                    <th>TOTAL SCORE</th>
-                    <th>AVERAGE SCORE</th>
-                    <th>REMARK</th>
-                    <th>GRADE</th>
+                    <!-- <th>POSITION</th> -->
+                    
                 </tr>
             </thead>
             <tbody>
                 <?php
-                    $sql = "SELECT *,
-                        (SELECT COUNT(*)
-                         FROM result2
-                         r2 WHERE r2.EXAMS >= r1.EXAMS) as position
-                         from result2 r1
-                         ";
+                    // $sql = "SELECT 
+                    // -- `NAME`,
+                    // -- `MATRIC_NUMBER`,
+                    // -- `SUBJECT`,
+                    // -- `CA1`,
+                    // -- `CA2`,
+                    // -- `CA3`,
+                    // `EXAMS`,
+                    //  RANK() OVER( ORDER BY `EXAMS` )  `position` FROM result2";
+
+
+        //     SELECT
+        //     val,
+        //     RANK() OVER (
+        //         ORDER BY val
+        //     ) my_rank
+        //      FROM
+        //     t;
+                $sql = "SELECT *, 
+                        (SELECT COUNT(*) FROM `rank-test` r2 WHERE r2.exams >= r1.exams) AS rank 
+                        FROM `rank-test` r1";
+            
                     $result = $conn->query($sql);
-                    if ($result->num_rows>0) 
-                        
-                    
-                    while($data = $result->fetch_assoc()):;
-
-                        //all subject total
-                        $sum = $data['CA1']+
-                        $data['CA2']+
-                        $data['CA3']+
-                        $data['EXAMS'];
-                      
-
-                    //average    
-                   $avg = $sum/3;
-
-                   //Remark
-                   if ($sum >=50) {
-                       $pass = "PASS";
-                    }else{
-                       $pass = "FAIL";
-                   }
-
-                   $grade = $sum;
-
-                   switch ($grade) {
-                    case $grade >=70:
-                        $a = "A";
-                        break;
-                    case $grade >=60:
-                        $a = "B";
-                        break;
-                    case $grade >=50:
-                        $a = "C";
-                        break;
-                    case $grade >=45:
-                        $a = "D";
-                        break;
-                    case $grade >=40:
-                        $a = "E";
-                        break;
-                    default:
-                        $a = "F";
-                        break;
-                   }
-
-                ?>
+                    $count = $result->num_rows; 
+                    $SN = 1;
+                        if ($count >0) {
+                            # code...
+                            while($data = $result->fetch_assoc()):;
+                        ?>
                 <tr>
+                    <td><?=$SN++?></td>
                     <td><?=$data['NAME']; ?></td>
-                    <td><?=$data['MATRIC_NO']; ?></td>
-                    <td><?=$data['SUBJECT']; ?></td>
-                    <td><?=$data['CA1']; ?></td>
-                    <td><?=$data['CA2']; ?></td>
-                    <td><?=$data['CA3']; ?></td>
+                    <td><?=$data['REG']; ?></td>
                     <td><?=$data['EXAMS']; ?></td>
-                    <td><?=$data['position']; ?></td>
+                    <td><?=$data['rank']; ?></td>
 
-                    <td><?=$sum; ?></td>
-                    <td><?=$avg; ?></td>
-                    <td><?=$pass; ?></td>
-                    <td><?=$a; ?></td>
+                 
                 </tr>
                 <?php endwhile ;
-                    // }else{
-                    //     echo"error... ".$conn->error;
-                    // }
+                        }
+                    else{
+                        echo"error... ".$conn->error;
+                    }
                 
                 
                 
